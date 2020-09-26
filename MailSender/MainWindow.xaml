@@ -33,7 +33,7 @@
                 <TextBlock Text="Готов!"/>
             </StatusBarItem>
         </StatusBar>
-        <TabControl SelectionChanged="TabControl_SelectionChanged">
+        <TabControl>
             <TabItem Header="Списки">
                 <DockPanel>
                     <ToolBarTray DockPanel.Dock="Top">
@@ -44,9 +44,15 @@
                                 <ComboBoxItem Content="smtp.gmail.com"/>
                                 <ComboBoxItem Content="smtp.mail.ru"/>
                             </ComboBox>
-                            <Button Content="Add"/>
-                            <Button Content="Edit"/>
-                            <Button Content="Del"/>
+                            <Button>
+                                <Image Source="Media/add.png" Height="12"/>
+                            </Button>
+                            <Button>
+                                <Image Source="Media/edit.png" Height="12"/>
+                            </Button>
+                            <Button>
+                                <Image Source="Media/remove.png" Height="12"/>
+                            </Button>
                         </ToolBar>
                         <ToolBar Header="Отправители" Band="1">
                             <ComboBox MinWidth="120" MaxWidth="200"
@@ -55,9 +61,15 @@
                                 <ComboBoxItem Content="Петров"/>
                                 <ComboBoxItem Content="Сидоров"/>
                             </ComboBox>
-                            <Button Content="Add"/>
-                            <Button Content="Edit"/>
-                            <Button Content="Del"/>
+                            <Button>
+                                <Image Source="Media/add.png" Height="12"/>
+                            </Button>
+                            <Button>
+                                <Image Source="Media/edit.png" Height="12"/>
+                            </Button>
+                            <Button>
+                                <Image Source="Media/remove.png" Height="12"/>
+                            </Button>
                         </ToolBar>
                         <ToolBar Header="Переход в планировщик" Band="0">
                             <Button Content="Перейти"/>
@@ -206,10 +218,11 @@
                             <Style.Triggers>
                                 <Trigger Property="Grid.Column" Value="0">
                                     <Setter Property="FontWeight" Value="Bold"/>
-                                    <Setter Property="HorizontalAlignment" Value="Right"/>
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
                                 </Trigger>
                                 <Trigger Property="Grid.Column" Value="1">
                                     <Setter Property="Margin" Value="5,0,0,0"/>
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
@@ -223,7 +236,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+                        
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Число отправленных писем: "/>
                     <TextBlock Grid.Column="1" Grid.Row="0" Text="5"/>
