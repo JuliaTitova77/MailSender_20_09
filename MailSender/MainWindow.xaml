@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.fontawesome.com/icons/"
         xmlns:data="clr-namespace:MailSender.Data"
-        xmlns:m="clr-namespace:MailSender.Models"        
+        xmlns:m="clr-namespace:MailSender.Models"
         xmlns:local="clr-namespace:MailSender"
         xmlns:System="clr-namespace:System;assembly=System.Runtime" 
         Title="MainWindow" Height="450" Width="800">
@@ -60,13 +60,13 @@
                            
                         </ToolBar>
                         <ToolBar Header="Отправители" Band="1">
-                            <ComboBox MinWidth="120" MaxWidth="200"
+                            <ComboBox Name ="SendersList" MinWidth="120" MaxWidth="200"
                                       SelectedIndex="0"
                                       ItemsSource="{x:Static data:TestData.Senders}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate DataType="m:Sender">
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding Path=Name}" ToolTip="{Binding Path=Address}"/>
+                                            <TextBlock Text="{Binding Name}" ToolTip="{Binding Address}"/>
                                             <!--<TextBlock>:</TextBlock>
                                             <TextBlock Text="{Binding Path=Address}" Opacity="0.4"/>-->
                                         </StackPanel>
@@ -104,7 +104,7 @@
                         </ToolBar>
                     </ToolBarTray>
                     <GroupBox Header="Список получателей">
-                        <DataGrid ItemsSource="{x:Static data:TestData.Recipients}"
+                        <DataGrid Name ="RecipientsList" ItemsSource="{x:Static data:TestData.Recipients}"
                                   AutoGenerateColumns="False"
                                   GridLinesVisibility="Vertical"
                                   AlternatingRowBackground="LightBlue"
@@ -137,7 +137,7 @@
                                         <Setter Property="Background" Value="White"></Setter>
                                     </Style>
                                 </StackPanel.Resources>
-                                <Button Content="Отправить"/>
+                                <Button Content="Отправить" Click="OnSendButton_Click"/>
                                 <Button Content="Запланировать"/>
                             </StackPanel>
 

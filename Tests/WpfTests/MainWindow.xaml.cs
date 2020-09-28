@@ -37,8 +37,6 @@ namespace WpfTests
         {
             try
             {
-
-
                 DataMessage.message.Subject = TitleMail.Text + " от " + DataMessage.from.DisplayName + " " + DateTime.Now;
                 DataMessage.message.Body = TextMail.Text + " " + DateTime.Now;
                 var client = new SmtpClient("smtp.outlook.com", 587);
