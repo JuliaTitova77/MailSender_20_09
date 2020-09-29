@@ -118,7 +118,9 @@
                         <StackPanel>
                             <TextBlock Text="Календарь" TextAlignment="Center"/>
                             
-                            <Calendar/>
+                            <Calendar/>                
+                                
+                           
                             <StackPanel Margin="5,7">
                                 <StackPanel.Resources>
                                     <Style TargetType="Button">
@@ -130,8 +132,28 @@
                                     
 
                                 </wpfTool:TimePicker>
-                                <Button Content="Отправить" Click="OnSendButtonClick"/>
-                                <Button Content="Запланировать"/>
+                                <Button x:Name="btnSend"  HorizontalAlignment="Left" Margin="0,23,0,0" VerticalAlignment="Center"
+                                        Width="179" RenderTransformOrigin="-1.12,-0.727"
+                                 Click="OnSendButtonClick" Height="25">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="Media\tort.jpeg" Width="12" Height="12"/>
+                                            <TextBlock Margin="3,0,0,0" Text="Отправить запланированно" VerticalAlignment="Center" />
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                                <Button x:Name="btnSendAtOnce"  HorizontalAlignment="Left" Margin="0,23,0,0" VerticalAlignment="Bottom"
+                                        Width="179" RenderTransformOrigin="-1.12,-0.727"
+                                 Click="btnSendAtOnce_Click" Height="25">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="Media\tort.jpeg" Width="12" Height="12"/>
+                                            <TextBlock Margin="3,0,0,0" Text="Отправить сразу" VerticalAlignment="Bottom" />
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+
+                                <!--<Button Content="Запланировать отправку"/>-->
                             </StackPanel>
                         </StackPanel>
                     </GroupBox>

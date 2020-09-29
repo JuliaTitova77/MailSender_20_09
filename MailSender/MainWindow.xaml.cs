@@ -48,5 +48,10 @@ namespace MailSender
         {
             tabControl.SelectedItem = tabPlanner;
         }
+
+        private void btnSendAtOnce_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
