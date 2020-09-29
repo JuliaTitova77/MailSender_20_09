@@ -3,46 +3,50 @@ using System.Windows;
 using MailSender.lib;
 using MailSender.Models;
 
-
 namespace MailSender
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         public MainWindow()
         {
             InitializeComponent();
-            // ServerList.ItemsSource = TestData.Servers;
+
+            //ServersList.ItemsSource = TestData.Servers;
         }
 
-        private void OnSendButton_Click(object sender, RoutedEventArgs e)
+        private void OnSendButtonClick(object Sender, RoutedEventArgs E)
         {
-            sender = SendersList.SelectedItem as Sender;
+            var sender = SendersList.SelectedItem as Sender;
             if (sender is null) return;
-            var recipient = RecipientsList.SelectedItem as Recipient;
-            if (recipient is null) return;
-            var message = MessagesList.SelectedItem as Message;
-            if (message is null) return;
-            var server = ServerList.SelectedItem as Server;
-            if (server is null) return;
+
+            if (!(RecipientsList.SelectedItem is Recipient recipient)) return;
+            if (!(ServersList.SelectedItem is Server server)) return;
+            if (!(MessagesList.SelectedItem is Message message)) return;
+
             var send_service = new MailSenderService
             {
                 ServerAddress = server.Address,
-                ServerPort = server._Port,
+                ServerPort = server.Port,
                 UseSSL = server.UseSSL,
                 Login = server.Login,
-                Password = server.Password
+                Password = server.Password,
             };
+
             try
             {
-                send_service.SendMessage(sender.Address,recipient.Address,message.Body);
+                send_service.SendMessage(sender.Address, recipient.Address, message.Subject, message.Body);
             }
-            catch (SmtpException ex)
+            catch (SmtpException error)
             {
-                MessageBox.Show("Ошибка при отправке почты" + ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                throw;
+                MessageBox.Show(
+                    "Ошибка при отправке почты " + error.Message, "Ошибка",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-       
+        private void btnClock_Click(object sender, RoutedEventArgs e)
+        {
+            tabControl.SelectedItem = tabPlanner;
+        }
     }
 }

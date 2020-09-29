@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace MailSender.Models
 {
@@ -8,8 +7,8 @@ namespace MailSender.Models
     {
         public string Login { get; set; }
         public string Address { get; set; }
-        private int Port = 25;
-        public int _Port
+        private int _Port = 25;
+        public int Port
         {
             get => _Port;
             set
