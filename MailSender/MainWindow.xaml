@@ -39,20 +39,18 @@
                 <DockPanel>
                     <ToolBarTray DockPanel.Dock="Top">
                         <ToolBar x:Name="tbSmtp" Header="Сервера" Band="0" BandIndex="0">
-                            <ComboBox Name="ServersList" Margin="26,0,0,0" MinWidth="120" MaxWidth="200"
+                            <ComboBox Name="ServersList" Margin="28,0,0,0" MinWidth="120" MaxWidth="200"
                                       SelectedIndex="0"
                                       ItemsSource="{x:Static data:TestData.Servers}"
                                       DisplayMemberPath="Address">
                             </ComboBox>
-                            <Button>
-                                <Image Source="Media\add.png" Height="12"/>
+                            <Button x:Name="btnAddSmtp" ToolTip="Добавить">
+                                <fa:ImageAwesome Icon="Solid_PlusCircle" Height="12" Foreground="DarkBlue"/>
                             </Button>
-                            <Button>
-                                <Image Source="Media\edit.png" Height="12"/>
-                            </Button>
-                            <Button>
-                                <Image Source="Media\remove.png" Height="12"/>
-                            </Button>
+                            <Button x:Name="btnEditSmtp" fa:Awesome.Content="Solid_Edit" Foreground="OrangeRed" 
+                                    ToolTip="Редактировать"/>
+                            <Button x:Name="btnDeleteSmtp" fa:Awesome.Content="Regular_TrashAlt" Foreground="Red"
+                                    ToolTip="Удалить"/>
                         </ToolBar>
                         <ToolBar x:Name="tbSenders" Header="Отправители" Band="1">
                             <ComboBox Name="SendersList" MinWidth="120" MaxWidth="200"
@@ -68,21 +66,21 @@
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
-                            <Button ToolTip="Добавить">
+                            <Button x:Name="btnAddSenders" ToolTip="Добавить">
                                 <fa:ImageAwesome Icon="Solid_PlusCircle" Height="12" Foreground="DarkBlue"/>
                             </Button>
-                            <Button fa:Awesome.Content="Solid_Edit" Foreground="OrangeRed" 
+                            <Button x:Name="btnEditSenders" fa:Awesome.Content="Solid_Edit" Foreground="OrangeRed" 
                                     ToolTip="Редактировать"/>
-                            <Button fa:Awesome.Content="Regular_TrashAlt" Foreground="Red"
+                            <Button x:Name="btnDeleteSenders" fa:Awesome.Content="Regular_TrashAlt" Foreground="Red"
                                     ToolTip="Удалить"/>
                         </ToolBar>
                         <ToolBar Name="tbPlanner" Header="Перейти в планировщик" Band="0">
                             <Button Name="btnClock" fa:Awesome.Content="Regular_Clock" Foreground="DarkBlue" 
                                     Click="btnClock_Click"/>
                         </ToolBar>
-                        <ToolBar x:Name="tbAddresse" Band="1"
+                        <ToolBar x:Name="tbAddressee" Band="1"
                                  HorizontalAlignment="Left" Height="30" Width="230">
-                            <Label x:Name="lAddresse" Content="Список адресатов" Height="25" Width="Auto"/>
+                            <Label x:Name="lAddressee" Content="Список адресатов" Height="25" Width="Auto"/>
                             <Button x:Name="btnAddAddressee" Height="25" Width="25" ToolTip="Добавить">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:ImageAwesome Icon="Solid_PlusCircle" Height="14" Foreground="DarkBlue"/>                                    
