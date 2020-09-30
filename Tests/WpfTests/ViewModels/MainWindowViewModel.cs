@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Timers;
+using System.Windows;
+using System.Windows.Input;
+using WpfTests.Infrastructure.Commands;
 using WpfTests.ViewModels.Base;
 
 
@@ -24,8 +27,8 @@ namespace WpfTests.ViewModels
             //}
         }
 
-        public DateTime CurrentTime => DateTime.Now;
-        private readonly Timer _Timer;
+        public DateTime CurrentTime => DateTime.Now;        
+       
         private bool _TimerEnabled = true;
 
         public bool TimerEnabled {
@@ -35,6 +38,15 @@ namespace WpfTests.ViewModels
                 if (!Set(ref _TimerEnabled, value)) return;
                 _Timer.Enabled = value;
             } 
+        }
+        private readonly Timer _Timer;
+        // команда, к кторой можем привязать кнопку и которая отображает диалог
+        private ICommand _ShowDialogCommand;
+        public ICommand ShowDialogCommand => _ShowDialogCommand
+            ??= new LambdaCommand(OnShowDialogCommandExecuted);
+        private void OnShowDialogCommandExecuted(object p)
+        {
+            MessageBox.Show("Hello World!");
         }
         public MainWindowViewModel()
         {

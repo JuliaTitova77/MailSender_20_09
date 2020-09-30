@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfTests"
         xmlns:vm="clr-namespace:WpfTests.ViewModels"
+        xmlns:commands="clr-namespace:WpfTests.Infrastructure.Commands"
         mc:Ignorable="d"
         Title="{Binding Title }"
         Topmost="{Binding Path=IsChecked,ElementName=IsWindowTopMost}"
@@ -36,6 +37,13 @@
         <CheckBox Content="Top most" VerticalAlignment="Top" HorizontalAlignment="Left"
                   Margin="220,0" Name="IsWindowTopMost"/>
         <Button Content="Close Window" VerticalAlignment="Top" HorizontalAlignment="Left"
-                  Margin="20,60" />
+                  Margin="20,60">
+            <Button.Command>
+                <commands:CloseWindowCommand/>
+            </Button.Command>
+        </Button>
+        <Button Content="Hello World!" VerticalAlignment="Top" HorizontalAlignment="Left"
+                  Margin="120,60" Command="{Binding ShowDialogCommand}"/>
+
     </Grid>
 </Window>
