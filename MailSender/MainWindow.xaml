@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.fontawesome.com/icons/"
         xmlns:data="clr-namespace:MailSender.Data"
-        xmlns:m="clr-namespace:MailSender.Models"
+        xmlns:m="clr-namespace:MailSender.Models"       
         xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         xmlns:local="clr-namespace:MailSender"
         xmlns:System="clr-namespace:System;assembly=System.Runtime" 
@@ -23,6 +23,8 @@
             </MenuItem>
             <MenuItem Header="Сервис">
                 <MenuItem Header="Параметры"/>
+                <Separator/>
+                <MenuItem Header="Отправка почты" Command="{Binding Path=SendMailCommand}"/>
             </MenuItem>
             <MenuItem Header="Помощь">
                 <MenuItem Header="О программе"/>
@@ -133,27 +135,29 @@
                                         <Setter Property="Background" Value="White"/>
                                     </Style>
                                 </StackPanel.Resources>
-                                <wpfTool:TimePicker Grid.Row="0" x:Name="tbTimePicker">
-                                    
-
-                                </wpfTool:TimePicker>
+                                <wpfTool:TimePicker Grid.Row="0" x:Name="tbTimePicker"/>
+                               
                                 <Button x:Name="btnSend"  HorizontalAlignment="Left" Margin="0,23,0,0" VerticalAlignment="Center"
                                         Width="179" RenderTransformOrigin="-1.12,-0.727"
                                   Height="25">
-                                    <Button.Content>
+                                    <Button.Content>                                        
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="Media\tort.jpeg" Width="12" Height="12"/>
                                             <TextBlock Margin="3,0,0,0" Text="Отправить запланированно" VerticalAlignment="Center" />
                                         </StackPanel>
                                     </Button.Content>
                                 </Button>
-                                <Button x:Name="btnSendAtOnce"  HorizontalAlignment="Left" Margin="0,23,0,0" VerticalAlignment="Bottom"
-                                        Width="179" RenderTransformOrigin="-1.12,-0.727"
-                                 Height="25">
-                                    <Button.Content>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Image Source="Media\tort.jpeg" Width="12" Height="12"/>
-                                            <TextBlock Margin="3,0,0,0" Text="Отправить сразу" VerticalAlignment="Bottom" />
+
+                                <Button x:Name="btnSendAtOnce"
+                                        Command="{Binding Path=SendMailCommand}"
+                                        HorizontalAlignment="Left" Margin="0,23,0,0" VerticalAlignment="Bottom"
+                                        Width="179" 
+                                 Height="25">                                    
+                                    <Button.Content>                                        
+                                            <StackPanel Orientation="Horizontal">                                             
+                                            <Image Source="Media\tort.jpeg" Width="12" Height="12" HorizontalAlignment="Left"/>
+                                            <TextBlock Margin="3,0,0,0" Text="Отправить сразу" 
+                                                       VerticalAlignment="Bottom" />
                                         </StackPanel>
                                     </Button.Content>
                                 </Button>
@@ -282,7 +286,7 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Число отправленных писем:"/>
-                    <TextBlock Grid.Column="1" Grid.Row="0" Text="5"/>
+                    <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=Statistic.SendMessagesCount}"/>
 
                     <TextBlock Grid.Column="0" Grid.Row="1" Text="Число отправителей в базе:"/>
                     <TextBlock Grid.Column="1" Grid.Row="1" Text="5"/>

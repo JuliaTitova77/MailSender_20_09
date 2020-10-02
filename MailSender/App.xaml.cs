@@ -20,9 +20,14 @@ namespace MailSender
         private static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
             services.AddSingleton<MainWindowViewModel>();// AddSingleton создается один раз и выдается один и тот же 
+
+#if DEBUG
+            services.AddSingleton<IMailService, DebugMailService>();
+#else
             services.AddTransient<IMailService, SmtpMailService>();//AddTransient  каждый раз будет создаваться новый
             // services.AddScoped<>() исполь в веб программировании  получает один и тот же объект как только подключение 
             //завершается то вссе объекты сгенерированные уничтожаются
+#endif
         }
     }
 }
