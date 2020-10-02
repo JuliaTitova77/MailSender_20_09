@@ -47,12 +47,15 @@
                                       SelectedItem="{Binding Path=SelectedServer}"
                                       DisplayMemberPath="Address">
                             </ComboBox>                            
-                            <Button x:Name="btnAddSmtp" ToolTip="Добавить">
+                            <Button x:Name="btnAddSmtp" ToolTip="Добавить" Command="{Binding Path=CreateNewServerCommand}">
                                 <fa:ImageAwesome Icon="Solid_PlusCircle" Height="12" Foreground="DarkBlue"/>
                             </Button>
-                            <Button x:Name="btnEditSmtp" fa:Awesome.Content="Solid_Edit" Foreground="OrangeRed" 
+                            <Button x:Name="btnEditSmtp" Command="{Binding Path=EditNewServerCommand}"
+                                    CommandParameter="{Binding Path=SelectedServer}"
+                                    fa:Awesome.Content="Solid_Edit" Foreground="OrangeRed" 
                                     ToolTip="Редактировать"/>
-                            <Button x:Name="btnDeleteSmtp" fa:Awesome.Content="Regular_TrashAlt" Foreground="Red"
+                            <Button x:Name="btnDeleteSmtp" Command="{Binding Path=DeleteNewServerCommand}"
+                                    fa:Awesome.Content="Regular_TrashAlt" Foreground="Red"
                                     ToolTip="Удалить"/>
                         </ToolBar>
                         <ToolBar x:Name="tbSenders" Header="Выбрать отправителя" Band="1">
