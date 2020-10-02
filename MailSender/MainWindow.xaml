@@ -9,7 +9,8 @@
         xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         xmlns:local="clr-namespace:MailSender"
         xmlns:System="clr-namespace:System;assembly=System.Runtime" 
-        Title="MainWindow" Height="450" Width="800">
+        DataContext="{Binding Path=MainWindowModel, Source={StaticResource Locator}}"
+        Title="{Binding Path=Title}" Height="450" Width="800">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Файл">
@@ -42,7 +43,8 @@
                         <ToolBar x:Name="tbSmtp" Header="Выбрать smtp-server" Margin="5,0,0,0" Height="30" Width="Auto" Band="0" BandIndex="0">
                             <ComboBox Name="ServersList" MinWidth="120" MaxWidth="200"
                                       SelectedIndex="0"
-                                      ItemsSource="{x:Static data:TestData.Servers}"
+                                      ItemsSource="{Binding Path=Servers}"
+                                      SelectedItem="{Binding Path=SelectedServer}"
                                       DisplayMemberPath="Address">
                             </ComboBox>                            
                             <Button x:Name="btnAddSmtp" ToolTip="Добавить">
@@ -56,7 +58,8 @@
                         <ToolBar x:Name="tbSenders" Header="Выбрать отправителя" Band="1">
                             <ComboBox Name="SendersList" MinWidth="120" MaxWidth="200"
                                       SelectedIndex="0"
-                                      ItemsSource="{x:Static data:TestData.Senders}">
+                                      ItemsSource="{Binding Path=Senders}"
+                                      SelectedItem="{Binding Path=SelectedSender}">                                
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate DataType="m:Sender">
                                         <StackPanel Orientation="Horizontal">
@@ -94,7 +97,8 @@
                         </ToolBar>
                     </ToolBarTray>
                     <GroupBox Header="Список получателей">
-                        <DataGrid Name="RecipientsList" ItemsSource="{x:Static data:TestData.Recipients}"
+                        <DataGrid Name="RecipientsList" ItemsSource="{Binding Path=Recipients}"
+                                  SelectedItem="{Binding Path=SelectedRecipient}"
                                   AutoGenerateColumns="False"
                                   GridLinesVisibility="Vertical"
                                   AlternatingRowBackground="LightBlue"
@@ -116,10 +120,8 @@
                     </Grid.ColumnDefinitions>
                     <GroupBox Grid.Column="0" Header="Управление">
                         <StackPanel>
-                            <TextBlock Text="Календарь" TextAlignment="Center"/>
-                            
-                            <Calendar/>                
-                                
+                            <TextBlock Text="Календарь" TextAlignment="Center"/>                            
+                            <Calendar/>                                                
                            
                             <StackPanel Margin="5,7">
                                 <StackPanel.Resources>
@@ -134,7 +136,7 @@
                                 </wpfTool:TimePicker>
                                 <Button x:Name="btnSend"  HorizontalAlignment="Left" Margin="0,23,0,0" VerticalAlignment="Center"
                                         Width="179" RenderTransformOrigin="-1.12,-0.727"
-                                 Click="OnSendButtonClick" Height="25">
+                                  Height="25">
                                     <Button.Content>
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="Media\tort.jpeg" Width="12" Height="12"/>
@@ -144,7 +146,7 @@
                                 </Button>
                                 <Button x:Name="btnSendAtOnce"  HorizontalAlignment="Left" Margin="0,23,0,0" VerticalAlignment="Bottom"
                                         Width="179" RenderTransformOrigin="-1.12,-0.727"
-                                 Click="btnSendAtOnce_Click" Height="25">
+                                 Height="25">
                                     <Button.Content>
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="Media\tort.jpeg" Width="12" Height="12"/>
@@ -232,7 +234,8 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <GroupBox Grid.Column="0" Header="Список писем">
-                        <ListBox Name="MessagesList" ItemsSource="{x:Static data:TestData.Messages}" 
+                        <ListBox Name="MessagesList" ItemsSource="{Binding Path=Messages}" 
+                                 SelectedItem="{Binding Path=SelectedMessage}"
                                  DisplayMemberPath="Subject"/>
                     </GroupBox>
                     <GroupBox Grid.Column="1" Header="Редактор">
