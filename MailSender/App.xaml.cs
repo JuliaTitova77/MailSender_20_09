@@ -1,17 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+using MailSender.lib.Interfaces;
+using MailSender.lib.Service;
+using MailSender.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace MailSender
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
+    public partial class App
     {
+        private static IHost _Hosting;
+
+        public static IHost Hosting => _Hosting
+            ??= Host.CreateDefaultBuilder(Environment.GetCommandLineArgs())
+            .ConfigureServices(ConfigureServices)
+            .Build();
+        // доступ у контейнеру
+        public static IServiceProvider Services => Hosting.Services;
+        private static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
+        {
+            services.AddSingleton<MainWindowViewModel>();// AddSingleton создается один раз и выдается один и тот же 
+
+#if DEBUG
+            services.AddSingleton<IMailService, DebugMailService>();
+#else
+            services.AddTransient<IMailService, SmtpMailService>();//AddTransient  каждый раз будет создаваться новый
+            // services.AddScoped<>() исполь в веб программировании  получает один и тот же объект как только подключение 
+            //завершается то вссе объекты сгенерированные уничтожаются
+#endif
+        }
     }
 }

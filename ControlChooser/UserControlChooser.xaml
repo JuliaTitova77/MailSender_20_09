@@ -1,0 +1,27 @@
+<UserControl x:Class="ControlChooser.UserControlChooser"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ControlChooser"
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="350">
+    <Grid>
+        <ToolBar x:Name="tbUserControlChooser" HorizontalAlignment="Center" Height="30"
+                     VerticalAlignment="Center" Width="350">
+            <Label x:Name="lblUserControlChooser" Content="{Binding Title}" Background="AliceBlue"  FontSize="10" FontWeight="DemiBold"  Width="130" HorizontalAlignment="Left"/>
+            <ComboBox Name="ChooseControlList" MinWidth="120" MaxWidth="200"
+                                      SelectedIndex="0" Width="102"></ComboBox>
+            <Button x:Name="btnAddUserControlChooser" Background="Aqua"  Height="16" Margin="3,0,0,0">
+                <Image Source="Media\add.png"/>
+            </Button>
+            <Button x:Name="btnEditUserControlChooser" Background="Yellow"  Height="16" Margin="3,0,0,0">
+                <Image Source="Media\edit.png"/>
+            </Button>
+            <Button x:Name="btnDeleteUserControlChooser" Background="Red" Height="16" Margin="3,0,0,0">
+                <Image Source="Media\remove.png"/>
+            </Button>
+            <Label Content="Label" Height="0" Width="15"/>
+        </ToolBar>
+    </Grid>
+</UserControl>
