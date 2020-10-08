@@ -1,4 +1,5 @@
-﻿using MailSender.lib.Service;
+﻿using MailSender.lib.Models;
+using MailSender.lib.Service;
 using MailSender.Models;
 using System;
 using System.Collections.Generic;

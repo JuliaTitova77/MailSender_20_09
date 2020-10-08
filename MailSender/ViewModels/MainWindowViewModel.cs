@@ -5,6 +5,7 @@ using System.Windows.Input;
 using MailSender.Data;
 using MailSender.Infrastructure.Commands;
 using MailSender.lib.Interfaces;
+using MailSender.lib.Models;
 using MailSender.Models;
 using MailSender.ViewModels.Base;
 

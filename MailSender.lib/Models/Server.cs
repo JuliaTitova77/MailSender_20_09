@@ -3,7 +3,7 @@
 
 namespace MailSender.Models
 {
-    class Server
+    public class Server
     {
         public string Login { get; set; }
         public string Address { get; set; }
