@@ -6,6 +6,7 @@
         xmlns:fa="http://schemas.fontawesome.com/icons/"
         xmlns:data="clr-namespace:MailSender.Data"
         xmlns:m="clr-namespace:MailSender.Models"       
+        xmlns:v="clr-namespace:MailSender.Views"
         xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         xmlns:local="clr-namespace:MailSender"
         xmlns:System="clr-namespace:System;assembly=System.Runtime" 
@@ -85,7 +86,7 @@
                         </ToolBar>
                         <ToolBar Name="tbPlanner" Header="Перейти в планировщик" Band="0">
                             <Button Name="btnClock" fa:Awesome.Content="Regular_Clock" Foreground="DarkBlue" 
-                                    Click="btnClock_Click"/>
+                                   />
                         </ToolBar>
                         <ToolBar x:Name="tbAddressee" Band="1"
                                  HorizontalAlignment="Left" Height="30" Width="230">
@@ -101,20 +102,9 @@
                                     ToolTip="Удалить" RenderTransformOrigin="1.091,0.587"/>
                         </ToolBar>
                     </ToolBarTray>
-                    <GroupBox Header="Список получателей">
-                        <DataGrid Name="RecipientsList" ItemsSource="{Binding Path=Recipients}"
-                                  SelectedItem="{Binding Path=SelectedRecipient}"
-                                  AutoGenerateColumns="False"
-                                  GridLinesVisibility="Vertical"
-                                  AlternatingRowBackground="LightBlue"
-                                  VerticalGridLinesBrush="Gray">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="ID" MinWidth="30"/>
-                                <DataGridTextColumn Header="Имя" Width="*" Binding="{Binding Name}"/>
-                                <DataGridTextColumn Header="Адрес" MinWidth="160" Binding="{Binding Address}"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </GroupBox>
+                    <Grid>
+                        <v:RecipientsView/>
+                    </Grid>
                 </DockPanel>
             </TabItem>
             <TabItem x:Name="tabPlanner" Header="Планировщик">
