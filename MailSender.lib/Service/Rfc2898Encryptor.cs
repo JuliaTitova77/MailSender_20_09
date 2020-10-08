@@ -1,16 +1,15 @@
-﻿using MailSender.lib.Interfaces;
-using System;
-using System.Collections.Generic;
+﻿using System;
+using System.IO;
 using System.Text;
 using System.Security.Cryptography;
-using System.IO;
+using MailSender.lib.Interfaces;
 
 namespace MailSender.lib.Service
 {
-    public class Rfc_2898Encryptor : IEncryptorService
+    public class Rfc2898Encryptor : IEncryptorService
     {
         /// <summary>
-        /// Массив байт - соль -алгоритм шифрования Rfc-2898
+        /// Массив байт - "соль" алгоритма шифрования Rfc2898
         /// </summary>
         private static readonly byte[] SALT =
         {
@@ -23,8 +22,8 @@ namespace MailSender.lib.Service
         public Encoding Encoding { get; set; } = Encoding.UTF8;
 
         /// <summary>Получить алгоритм шифрования с указанным паролем</summary>
-        /// <param name="password"> Пароль шифрования</param>
-        /// <returns> Алгоритм шифрования</returns>
+        /// <param name="password">Пароль шифрования</param>
+        /// <returns>Алгоритм шифрования</returns>
         private static ICryptoTransform GetAlgorithm(string password)
         {
             var pdb = new Rfc2898DeriveBytes(password, SALT);
@@ -32,12 +31,11 @@ namespace MailSender.lib.Service
             algorithm.Key = pdb.GetBytes(32);
             algorithm.IV = pdb.GetBytes(16);
             return algorithm.CreateEncryptor();
-;
         }
 
-        /// <summary>Получить алгоритм для расшифрования</summary>
-        /// <param name="password"> Пароль шифрования</param>
-        /// <returns> Алгоритм расшифровки</returns>
+        /// <summary>Получить алгоритм для расшифровки</summary>
+        /// <param name="password">Пароль</param>
+        /// <returns>Алгоритм расшифровки</returns>
         private static ICryptoTransform GetInverseAlgorithm(string password)
         {
             var pdb = new Rfc2898DeriveBytes(password, SALT);
@@ -45,31 +43,30 @@ namespace MailSender.lib.Service
             algorithm.Key = pdb.GetBytes(32);
             algorithm.IV = pdb.GetBytes(16);
             return algorithm.CreateDecryptor();
-            ;
         }
+
         public string Encrypt(string str, string Password)
         {
             var encoding = Encoding ?? Encoding.UTF8;
             var bytes = encoding.GetBytes(str);
             var crypted_bytes = Encrypt(bytes, Password);
             return Convert.ToBase64String(crypted_bytes);
-            
         }
 
         public byte[] Encrypt(byte[] data, string Password)
         {
             var algorithm = GetAlgorithm(Password);
             using (var stream = new MemoryStream())
-            using (var crypto_stream = new CryptoStream(stream,algorithm,CryptoStreamMode.Write))
+            using (var crypto_stream = new CryptoStream(stream, algorithm, CryptoStreamMode.Write))
             {
                 crypto_stream.Write(data, 0, data.Length);
                 crypto_stream.FlushFinalBlock();
                 return stream.ToArray();
             }
         }
+
         public string Decrypt(string str, string Password)
         {
-
             var crypted_bytes = Convert.FromBase64String(str);
             var bytes = Decrypt(crypted_bytes, Password);
             var encoding = Encoding ?? Encoding.UTF8;
@@ -86,9 +83,11 @@ namespace MailSender.lib.Service
                 crypto_stream.FlushFinalBlock();
                 return stream.ToArray();
             }
-
         }
 
-       
+        public object Encrypt(string str)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

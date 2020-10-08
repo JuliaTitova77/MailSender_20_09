@@ -11,5 +11,6 @@ namespace MailSender.lib.Interfaces
 
         byte[] Encrypt(byte[] data, string Password);
         byte[] Decrypt(byte[] data, string Password);
+        object Encrypt(string str);
     }
 }
