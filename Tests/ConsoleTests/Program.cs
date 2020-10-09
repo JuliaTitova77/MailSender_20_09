@@ -11,11 +11,8 @@ namespace ConsoleTests
         static void Main(string[] args)
         {
 
-            IEncryptorService cryptor = new Rfc_2898Encryptor();
-            var str = "Hello world!";
-            const string password = "MailSender!";
-            var crypted_str = cryptor.Encrypt(str, password);
-            var decryptor_str = cryptor.Decrypt(crypted_str, password);
+            Console.WriteLine("Главный поток работает!");
+            Console.ReadLine();
         }
     }
 }
