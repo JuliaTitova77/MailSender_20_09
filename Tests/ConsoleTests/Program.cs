@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 
 
@@ -18,6 +19,7 @@ namespace ConsoleTests
             timer_thread.IsBackground = true;
             timer_thread.Start();
 
+            //timer_thread.Interrupt();
             //var printer_thread = new Thread(PrintMessage)
             //{
             //    IsBackground = true,
@@ -32,6 +34,21 @@ namespace ConsoleTests
             print_task.Start();
             Console.WriteLine("Главный поток работу закончил!");
             Console.ReadLine();
+            Console.WriteLine("Останавливаю время....");
+            var current_process = System.Diagnostics.Process.GetCurrentProcess();
+            //Process.Start("calc.exe");
+            timer_thread.Priority = ThreadPriority.BelowNormal;
+
+            __TimerWork = false;
+            if (!timer_thread.Join(100))
+                timer_thread.Interrupt();
+            //if (timer_thread.IsAlive)
+            //    timer_thread.Abort();
+            // timer_thread.Abort() не работает в .NET CORE
+
+
+            //timer_thread.Interrupt();
+            //timer_thread.Abort();
             
         }
 
@@ -46,10 +63,12 @@ namespace ConsoleTests
             }
 
         }
+
+        private static bool __TimerWork = true;
         private static void TimerMethod()
         {
             Print();
-            while (true)
+            while (__TimerWork)
             {
                 Console.Title = DateTime.Now.ToString("HH:mm:ss:ffff");
                 Thread.Sleep(100);
