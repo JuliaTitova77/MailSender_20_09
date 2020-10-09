@@ -28,7 +28,7 @@ namespace MailSender
             // services.AddScoped<>() исполь в веб программировании  получает один и тот же объект как только подключение 
             //завершается то вссе объекты сгенерированные уничтожаются
 #endif
-            services.AddSingleton<IEncryptorService, Rfc_2898Encryptor>();
+            services.AddSingleton<IEncryptorService, Rfc2898Encryptor>();
         }
     }
 }
