@@ -17,14 +17,19 @@ namespace WpfTests
             new Thread(() =>
             {
                 var result = GetResultHard();
-                Application.Current.Dispatcher.Invoke(() => ResultText.Text = result);//в этом случае приложение будет работать корректно и
-                //интерфейс виснуть не будет
-
+                //в этом случае приложение будет работать корректно и интерфейс виснуть не будет
+                //Application.Current.Dispatcher.Invoke(() => ResultText.Text = result);
+                UpdateResultValue(result);
             })
-            { IsBackground = true}.Start();
-               
-               
-            
+            { IsBackground = true}.Start();                        
+        }
+
+        private void UpdateResultValue(string Result)
+        {
+            if (Dispatcher.CheckAccess())
+                ResultText.Text = Result;
+            else
+                Dispatcher.Invoke(() => UpdateResultValue(Result));
         }
 
         private string GetResultHard()
