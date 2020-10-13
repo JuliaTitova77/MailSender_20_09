@@ -35,7 +35,19 @@ namespace ConsoleTests
                 
             starter.Set();
             Console.ReadLine();
+            ////с помощью мьютекса можно организовать проверку на второй экземпляр в системе
+            //// выполняет синхронизацию между процессами
+            //Mutex mutex_1 = new Mutex(true,"Тестовый мьютекс", out var created1);
 
+            //Mutex mutex_2 = new Mutex(true, "Тестовый мьютекс", out var created2);
+
+            //mutex_1.WaitOne();// застрянет дот тех пор пока кто-то не освободит мьютекс
+            //mutex_1.ReleaseMutex();// освобождает в первом потоке мьютекс
+
+            //Semaphore semaphore = new Semaphore(0,10);// семафор это мютекс в кот можно войти много раз указ ограничение вторым параметром 
+
+            //semaphore.WaitOne();// для каждого потока 10 потоков вызывают 10 waitone
+            //semaphore.Release();
            
 
         }
