@@ -45,5 +45,11 @@
         <Button Content="Hello World!" VerticalAlignment="Top" HorizontalAlignment="Left"
                   Margin="120,60" Command="{Binding ShowDialogCommand}"/>
 
+        <Button Content="Compute button" VerticalAlignment="Top" HorizontalAlignment="Left"
+                  Margin="523,60,0,0" Click="ComputerResultButton_Click"/>
+        <TextBlock Text="Result" VerticalAlignment="Top" HorizontalAlignment="Left"
+                   Margin="523,80,0,0" Name="ResultText" />
+
+
     </Grid>
 </Window>
