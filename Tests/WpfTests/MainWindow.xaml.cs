@@ -1,72 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Net;
-using System.Net.Mail;
 
 namespace WpfTests
 {   
     
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         public MainWindow()
         {
             InitializeComponent();
         }
-        public static class DataMessage
+
+        private void ComputerResultButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            public static MailAddress to = new MailAddress("julia.titova@gmail.com", "Юлия");
-            public static MailAddress from = new MailAddress("julia.titova@outlook.com", "Юлия");
-
-            public static MailMessage message = new MailMessage(from, to);
-
+            //new Thread(() => ResultText.Text = GetResultHard()).Start();// так нельзя использовать из потока в котором они не были созданы
+            new Thread(() =>
+            {
+                var result = GetResultHard();
+                //в этом случае приложение будет работать корректно и интерфейс виснуть не будет
+                //Application.Current.Dispatcher.Invoke(() => ResultText.Text = result);
+                UpdateResultValue(result);
+            })
+            { IsBackground = true}.Start();                        
         }
 
-        private void OnSendButtonClick(object sender, RoutedEventArgs e)
+        private void UpdateResultValue(string Result)
         {
-            try
+            if (Dispatcher.CheckAccess())
+                ResultText.Text = Result;
+            else
+                Dispatcher.Invoke(() => UpdateResultValue(Result));
+        }
+
+        private string GetResultHard()
+        {
+            for(var i = 0; i < 500; i++)
             {
-
-
-                DataMessage.message.Subject = TitleMail.Text + " от " + DataMessage.from.DisplayName + " " + DateTime.Now;
-                DataMessage.message.Body = TextMail.Text + " " + DateTime.Now;
-                var client = new SmtpClient("smtp.outlook.com", 587);
-
-                client.Credentials = new NetworkCredential
-                {
-                    UserName = LoginEdit.Text,
-                    Password = PasswordEdit.Password
-
-                };
-                client.EnableSsl = true;
-                client.Send(DataMessage.message);
+                Thread.Sleep(10);
             }
-            catch
-            {
-                MessageBox.Show("Ошибка отправления!", "Сообщение", MessageBoxButton.OK);
-            }
-           
-                
-            MessageBox.Show("Работа завершена", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
-
-            Console.ReadLine();
-                
-           
-                
-            
-
-           
+            return "Hello World";
         }
     }
 }
