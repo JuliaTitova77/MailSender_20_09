@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Mail;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 
@@ -88,5 +89,8 @@ namespace MailSender.lib.Service
 
             }
         }
+        // так можно передать библиотеку Dll в проект кроме GAC 
+        //[DllImport("file_name.dll")]
+        //private static extern void MethodName(string str);
     }
 }
