@@ -39,6 +39,19 @@ namespace MailSender.lib.Service
                 Debug.WriteLine("Сообщение: от {0} к {1}: \r\n{2}\r\n{3}",
                     SenderAddress, RecipientAddress, Subject, Body);
             }
+
+            public void Send(string SendAddress, IEnumerable<string> RecipientsAddresses, string Subject, string Body)
+            {
+                foreach (var recipient_address in RecipientsAddresses)
+                {
+                    Send(SendAddress, recipient_address, Subject, Body);
+
+                }
+            }
+            public void SendParallel(string SendAddress, IEnumerable<string> RecipientsAddresses, string Subject, string Body)
+            {
+                Send(SendAddress, RecipientsAddresses, Subject, Body);
+            }
         }
     }
 }

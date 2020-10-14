@@ -9,8 +9,9 @@ namespace ConsoleTests
     {
         static void Main(string[] args)
         {
-            CriticalSectionTests.Start();
+            //CriticalSectionTests.Start();
             //ThreadTests.Start();
+            ThreadPoolTests.Start();
             Console.WriteLine("Главный поток работу закончил");
             Console.ReadLine();
         }
