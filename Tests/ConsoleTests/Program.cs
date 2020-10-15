@@ -19,14 +19,14 @@ namespace ConsoleTests
             //ThreadTests.Start();
             //ThreadPoolTests.Start();
 
-            //Console.Write($"Введите число для расчетов N: ");
-            //var N = Int32.Parse(Console.ReadLine());
+            Console.Write($"Введите число для расчетов N: ");
+            var N = Int32.Parse(Console.ReadLine());
             //ThreadCalculation.Run(N);
-            //Thread thread1 = new Thread(ThreadCalculation.MulResult);
-            //Thread thread2 = new Thread(ThreadCalculation.SumResult);
-            //thread1.Start(N);
-            //thread2.Start(N);            
-            
+            Thread thread1 = new Thread(ThreadCalculation.MulResult);
+            Thread thread2 = new Thread(ThreadCalculation.SumResult);
+            thread1.Start(N);
+            thread2.Start(N);
+
             MyThread myThread = new MyThread("Запись в файл");
             myThread.Thrd.Join();
             Console.WriteLine("Главный поток работу закончил");           
