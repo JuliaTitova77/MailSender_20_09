@@ -44,5 +44,6 @@ namespace ConsoleTests
             Console.WriteLine($"Поток #2 работу окончил");
 
         }
+
     }
 }
