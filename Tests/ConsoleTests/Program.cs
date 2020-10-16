@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Threading.Tasks;
 
 
 namespace ConsoleTests
@@ -9,13 +12,15 @@ namespace ConsoleTests
     {
         static void Main(string[] args)
         {
-            //CriticalSectionTests.Start();
-            //ThreadTests.Start();
-            ThreadPoolTests.Start();
+            TPLOverview.Start();
+
             Console.WriteLine("Главный поток работу закончил");
             Console.ReadLine();
         }
-
-
     }
 }
+
+       
+
+   
+
