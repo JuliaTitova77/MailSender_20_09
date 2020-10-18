@@ -2,7 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Net;
+using System.Net.Mail;
 
 namespace MailSender.lib.Service
 {
@@ -48,9 +52,29 @@ namespace MailSender.lib.Service
 
                 }
             }
+
             public void SendParallel(string SendAddress, IEnumerable<string> RecipientsAddresses, string Subject, string Body)
             {
                 Send(SendAddress, RecipientsAddresses, Subject, Body);
+            }
+
+            public async Task SendAsync(string SendAddress, string RecipientAddress, string Subject, string Body,
+                CancellationToken Cancel = default)
+            {
+                   
+            }
+
+            public async Task SendAsync(string SendAddress, IEnumerable<string> RecipientsAddresses, string Subject, string Body,
+                IProgress<(string Recipient, double Percent)> Progress = null, CancellationToken Cancel = default)
+            {
+                
+            }
+           
+
+            public async Task SendParallelAsync(string SendAddress, IEnumerable<string> RecipientsAddresses, string Subject, string Body,
+                IProgress<(string Recipient, double Percent)> Progress = null, CancellationToken Cancel = default)
+            {
+                
             }
         }
     }

@@ -12,17 +12,15 @@ namespace ConsoleTests
     {
         static void Main(string[] args)
         {
-            int[,] first = new int[10, 10];
-            int[,] second = new int[10, 10];
-            int[,] result = new int[10, 10];
             //TPLOverview.Start();
-            var task = Task.Run(() => MulMatrixTPL.FillMatrix(first));
-            var cont_task = task.ContinueWith(t => MulMatrixTPL.FillMatrix(second));       
-            cont_task.ContinueWith(t => MulMatrixTPL.MulMatrix(first, second, result));
-            cont_task.ContinueWith(t => MulMatrixTPL.Print(result, "Перемножение двух матриц"));
+            var task = AsyncAwaitTest.StartAsync();//таск формируется самостоятельно компилятором (а так сами бы ручкаим делали 
+            //с помощью ключевого слова new
+            var process_manages = AsyncAwaitTest.ProcedssDataTestAsync();
+            Console.WriteLine("Тестовая задача запущена");
 
-            Console.WriteLine("Главный поток работу закончил");                   
-               
+            // task.Wait();
+            Task.WaitAll(task, process_manages);
+            Console.WriteLine("Главный поток работу закончил");         
             Console.ReadLine();
         }
     }
