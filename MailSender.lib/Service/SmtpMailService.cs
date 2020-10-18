@@ -151,11 +151,12 @@ namespace MailSender.lib.Service
         public async Task SendParallelAsync(string SendAddress, IEnumerable<string> RecipientsAddresses, string Subject, string Body,
              CancellationToken Cancel = default)
         {
-            //формируем все задачи по отправке почты
+            //формируем все задачи по отправке почты мы их наметили что они так будут выглядеть
             IEnumerable<Task> tasks = RecipientsAddresses
                 .Select(recipient_address => SendAsync(SendAddress, recipient_address, Subject, Body, Cancel));
 
-            //запускаем их и ожидаем их завершение
+            //запускаем их и ожидаем их завершение. А выполнится метод tasks именно здесь. Метод WhenAll перечислит перечисление, оно создаст
+            //все эти задачи и оно запустится
             await Task.WhenAll(tasks).ConfigureAwait(false);
         }
         // так можно передать библиотеку Dll в проект кроме GAC 
