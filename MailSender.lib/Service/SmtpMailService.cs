@@ -159,6 +159,11 @@ namespace MailSender.lib.Service
             //все эти задачи и оно запустится
             await Task.WhenAll(tasks).ConfigureAwait(false);
         }
+
+        public Task SendParallelAsync(string SendAddress, IEnumerable<string> RecipientsAddresses, string Subject, string Body, IProgress<(string Recipient, double Percent)> Progress = null, CancellationToken Cancel = default)
+        {
+            throw new NotImplementedException();
+        }
         // так можно передать библиотеку Dll в проект кроме GAC 
         //[DllImport("file_name.dll")]
         //private static extern void MethodName(string str);
