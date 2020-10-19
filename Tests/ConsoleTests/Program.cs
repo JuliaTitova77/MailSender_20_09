@@ -32,7 +32,7 @@ namespace ConsoleTests
             using (var db = new StudentsDB(new DbContextOptionsBuilder<StudentsDB>().UseSqlServer(connection_str).Options))
             {
                 //await db.Database.EnsureCreatedAsync();
-                await db.Database.MigrateAsync();
+                await db.Database.MigrateAsync();// делает миграции и создает базу данных
 
                 var students_count = await db.Students.CountAsync();
 
@@ -63,7 +63,8 @@ namespace ConsoleTests
                             {
                                 Name = $"Студент {k}",
                                 Surname = $"Surname {k}",
-                                Patronymic = $"Patronymic {k}",
+                                Patronymic = $"Patronymic {k}"
+                               
                             };
                             k++;
                             group.Students.Add(student);
@@ -75,13 +76,13 @@ namespace ConsoleTests
                     await db.SaveChangesAsync();
                 }
             }
-
+            // вывести всех студентов в группе 5
             using (var db = new StudentsDB(new DbContextOptionsBuilder<StudentsDB>().UseSqlServer(connection_str).Options))
             {
                 var students = await db.Students
-                   .Include(s => s.Group) // JOIN
+                   .Include(s => s.Group) // JOIN формирует Join к таблице 
                    .Where(s => s.Group.Name == "Группа 5")
-                   .ToArrayAsync();
+                   .ToArrayAsync();// отправляет в БД
 
                 foreach (var student in students)
                     Console.WriteLine("[{0}] {1} - {2}", student.Id, student.Name, student.Group.Name);

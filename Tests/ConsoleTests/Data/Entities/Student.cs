@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ConsoleTests.Data.Entityes
 {
-    public class Entity
+    public abstract class Entity
     {
         public int Id { get; set; }
         
@@ -23,6 +23,8 @@ namespace ConsoleTests.Data.Entityes
         public string Surname { get; set; }
         [MaxLength(120)]
         public string Patronymic { get; set; }
+
+       
 
         public virtual Group Group { get; set; }// навигационные свойства через них осущ навигацию из объекта в БД и наоборот
 

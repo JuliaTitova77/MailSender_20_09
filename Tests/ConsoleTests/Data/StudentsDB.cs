@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ConsoleTests.Data
 {
-    class StudentsDB:DbContext
+    public class StudentsDB:DbContext
     {
         public DbSet<Student> Students { get; set; }
         public DbSet<Group> Groups { get; set; }
