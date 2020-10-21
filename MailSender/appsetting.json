@@ -1,5 +1,5 @@
 {
-  "ConnectingStrings": {
+  "ConnectionStrings": {
     "Default": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MailSender.DB;Integrated Security=True"
   },
   "Logging": {

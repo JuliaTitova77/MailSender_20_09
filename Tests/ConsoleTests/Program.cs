@@ -82,7 +82,7 @@ namespace ConsoleTests
                 var students = await db.Students
                    .Include(s => s.Group) // JOIN формирует Join к таблице 
                    .Where(s => s.Group.Name == "Группа 5")
-                   .ToArrayAsync();// отправляет в БД
+                   .ToArrayAsync();// отправляет в БД получаем массив студентов
 
                 foreach (var student in students)
                     Console.WriteLine("[{0}] {1} - {2}", student.Id, student.Name, student.Group.Name);
