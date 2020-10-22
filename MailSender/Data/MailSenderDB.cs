@@ -15,6 +15,15 @@ namespace MailSender.Data
         public DbSet<Message> Messages { get; set; }
         public DbSet<SchedulerTask> SchedulerTasks { get; set; }
         public MailSenderDB(DbContextOptions<MailSenderDB> opt) : base(opt) { }
+
+        //метод который устанавливает каскадное удаление в БД
+        //protected override void OnModelCreating(ModelBuilder db)
+        //{
+        //    db.Entity<SchedulerTask>()
+        //        .HasMany(t => t.Recipients)
+        //        .WithOne("Task")
+        //        .OnDelete(DeleteBehavior.Cascade);
+        //}
        
     }
 }

@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Windows;
 using MailSender.Data;
+using MailSender.Data.Stores.InDB;
+using MailSender.Data.Stores.InMemory;
 //using MailSender.Data.Stores.InDB;
 using MailSender.lib.Interfaces;
 using MailSender.lib.Models;
 using MailSender.lib.Service;
+using MailSender.Models;
 using MailSender.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -51,11 +54,14 @@ namespace MailSender
 
             services.AddDbContext<MailSenderDB>(opt => opt
                .UseSqlServer(host.Configuration.GetConnectionString("Default")));
-            //services.AddTransient<MailSenderDbInitializer>();
+            services.AddTransient<MailSenderDBInitializer>();
 
-            ////services.AddSingleton<IStore<Recipient>, RecipientsStoreInMemory>();
+            //services.AddSingleton<IStore<Recipient>, RecipientsStoreInMemory>();
+            //services.AddSingleton<IStore<Sender>, SendersStoreInMemory>();
+            //services.AddSingleton<IStore<Server>, ServersStoreInMemory>();
+            //services.AddSingleton<IStore<Message>, MessagesStoreInMemory>();
 
-            //services.AddSingleton<IStore<Recipient>, RecipientsStoreInDB>();
+            services.AddSingleton<IStore<Recipient>, RecipientsStoreInDB>();
             //services.AddSingleton<IStore<Sender>, SendersStoreInDB>();
             //services.AddSingleton<IStore<Server>, ServersStoreInDB>();
             //services.AddSingleton<IStore<Message>, MessagesStoreInDB>();

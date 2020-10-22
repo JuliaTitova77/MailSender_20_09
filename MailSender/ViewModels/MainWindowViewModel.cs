@@ -14,6 +14,7 @@ namespace MailSender.ViewModels
     class MainWindowViewModel : ViewModel
     {
         private readonly IMailService _MailService;
+        private readonly IStore<Recipient> _RecipientsStore;
 
         public StatisticViewModel Statistic { get; } = new StatisticViewModel();
 
@@ -185,12 +186,16 @@ namespace MailSender.ViewModels
 
         #endregion
 
-        public MainWindowViewModel(IMailService MailService)
+
+        //Чтобы добавить доступ шифровальщика к БД добавляем в конструктор , IEncryptorService Encryptor
+        public MainWindowViewModel(IMailService MailService, IStore<Recipient> RecipientsStore)
         {
             _MailService = MailService;
+            _RecipientsStore = RecipientsStore;
+           
             Servers = new ObservableCollection<Server>(TestData.Servers);
             Senders = new ObservableCollection<Sender>(TestData.Senders);
-            Recipients = new ObservableCollection<Recipient>(TestData.Recipients);
+            Recipients = new ObservableCollection<Recipient>(RecipientsStore.GetAll());
             Messages = new ObservableCollection<Message>(TestData.Messages);
         }
     }
