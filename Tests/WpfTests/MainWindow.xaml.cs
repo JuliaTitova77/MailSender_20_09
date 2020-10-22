@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using WpfTests.Infrastructure.Commands;
 
 namespace WpfTests
 {   
@@ -88,11 +89,18 @@ namespace WpfTests
         private static async Task<int> GetWordsCountAsync( string FileName, IProgress<double> Progress = null,CancellationToken Cancel = default)
         {
             //Мы находимя в потоке ThreadId = 7
-            await Task.Yield();// у нас забрали поток 7 в пул потоков
+            //await Task.Yield();// у нас забрали поток 7 в пул потоков
             //Теперь мы например в ThreadId = 12(заранее не знаем), а возможно и обратно в поток 7
+            //чтоб дальше было в пуле потоков нужно добавить ConfigureAwait но его нет в методе Yield, доб в папке Extensions класс для этого
+            var thread_id = Thread.CurrentThread.ManagedThreadId;
+
+            await Task.Yield().ConfigureAwait(false);
+
+            var thread_id2 = Thread.CurrentThread.ManagedThreadId;
+
             var dict = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
 
-            Cancel.ThrowIfCancellationRequested();//проверка отменена ли операция Она тормозит выполнение операции но нужна
+            Cancel.ThrowIfCancellationRequested(); //проверка отменена ли операция Она тормозит выполнение операции но нужна
             using (StreamReader reader = new StreamReader(FileName))
             {
                 while (!reader.EndOfStream)
@@ -104,7 +112,7 @@ namespace WpfTests
                     var words = line.Split(' ');
 
                     //Thread.Sleep(100);// Замедляет настолько основной поток, что виснет приложение. Так делать нельзя Нужно разсинхронизировать 
-                    await Task.Delay(1);
+                    //await Task.Delay(1,Cancel).ConfigureAwait(false);
 
                     //Посчитать число слов в файле, но работа вся идет в основном потоке хоть и асинхронно
                     foreach (var word in words)
@@ -118,6 +126,14 @@ namespace WpfTests
                     Progress?.Report(reader.BaseStream.Position / (double)reader.BaseStream.Length);
                 }
             }
+            //чтоб вернуться в пул потоков и чтоб код выполняющийся ниже выполнялся в первом потоке
+            //тогда нам нужен метод расширения для диспетчера
+
+            var thread_id3 = Thread.CurrentThread.ManagedThreadId;
+
+            await  App.Current.Dispatcher;//.GetAwaiter();
+
+            var thread_id4 = Thread.CurrentThread.ManagedThreadId;
             //Result.Text = $"Число слов {dict.Count}";
             return dict.Count;
 

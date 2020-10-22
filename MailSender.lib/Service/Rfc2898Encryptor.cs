@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using System.Security.Cryptography;
 using MailSender.lib.Interfaces;
+using MailSender.Models;
 
 namespace MailSender.lib.Service
 {
@@ -20,6 +21,12 @@ namespace MailSender.lib.Service
         };
 
         public Encoding Encoding { get; set; } = Encoding.UTF8;
+
+        //Принцип инверсии управления, когда шифровальщик получает доступ к БД
+        //public Rfc2898Encryptor(IStore<Recipient> Recipients)
+        //{
+
+        //}
 
         /// <summary>Получить алгоритм шифрования с указанным паролем</summary>
         /// <param name="password">Пароль шифрования</param>
