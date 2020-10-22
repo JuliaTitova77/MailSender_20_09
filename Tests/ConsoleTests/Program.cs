@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace ConsoleTests
 {
+   
     class Program
     {
         static async Task Main(string[] args)
@@ -27,18 +27,7 @@ namespace ConsoleTests
             //using (var db = services.GetRequiredService<StudentsDB>())
             //{
 
-            //}
-
-            using (var db = new StudentsDB(new DbContextOptionsBuilder<StudentsDB>().UseSqlServer(connection_str).Options))
-            {
-                //await db.Database.EnsureCreatedAsync();
-                await db.Database.MigrateAsync();// делает миграции и создает базу данных
-
-                var students_count = await db.Students.CountAsync();
-
-                Console.WriteLine("Число студентов в БД = {0}", students_count);
-            }
-
+            //}       
 
             //db очень коротко живущая сущность и на переод общения с БД чем больше живет тем больше кеширует и тормознее становится
             //при большом ко-ве записей нужно разбить их по 200 или 500 записей для заноса в БД
@@ -80,8 +69,8 @@ namespace ConsoleTests
             using (var db = new StudentsDB(new DbContextOptionsBuilder<StudentsDB>().UseSqlServer(connection_str).Options))
             {
                 var students = await db.Students
-                   .Include(s => s.Group) // JOIN формирует Join к таблице 
-                   .Where(s => s.Group.Name == "Группа 5")
+                  .Include(s => s.Group) // JOIN формирует Join к таблице 
+                  .Where(s => s.Group.Name == "Группа 5")
                    .ToArrayAsync();// отправляет в БД получаем массив студентов
 
                 foreach (var student in students)
