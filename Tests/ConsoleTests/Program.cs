@@ -27,7 +27,7 @@ namespace ConsoleTests
             //using (var db = services.GetRequiredService<StudentsDB>())
             //{
 
-            //}
+            //}            
 
             using (var db = new StudentsDB(new DbContextOptionsBuilder<StudentsDB>().UseSqlServer(connection_str).Options))
             {
